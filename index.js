@@ -14,8 +14,7 @@ const connection = mysql.createConnection({
 connection.connect(err => {
     if(err) throw err
     start()
-})
+});
 
 function start(){
-
-}
+};

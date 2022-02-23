@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/GundamMosi10/CMS-Content-Management-System#readme",
   "dependencies": {
+    "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "inquirer": "^8.2.0",
     "mysql2": "^2.3.3"
