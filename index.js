@@ -149,7 +149,7 @@ const addNewRole = () => {
       });
     });
 };
-
+//this function adds a new employee to the company
 const addNewEmployee = () => {
   inquirer
   .prompt([
@@ -184,7 +184,7 @@ const addNewEmployee = () => {
     });
   });
 };
-
+//this updates an employee's role within the company 
 const updateEmployeeRole = () => {
   inquirer
   .prompt([
@@ -210,7 +210,7 @@ const updateEmployeeRole = () => {
     });
   });
 };
-
+//closes the prompt in the command line
 function finish() {
   process.exit(0);
 };
