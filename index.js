@@ -28,7 +28,7 @@ const promptMenu = () => {
       type: "list",
       name: "mainMenu",
       message: "What would you like to do?",
-      choices: ["View All Departments", "View All Roles", "View All Employees", "Add a Department", "Add a Role", "Add an Employee", "Update an Employee Role", "Finished"]
+      choices: ["View All Departments", "View All Roles", "View All Employees", "Add a Department", "Add a Role", "Add an Employee", "Update an Employee Role", "Finished" ]
     }
   ])
   .then(userChoices => {
@@ -55,7 +55,7 @@ const promptMenu = () => {
         updateEmployeeRole();
         break;
       case "Finished":
-        promptFinish();
+        finish();
     }
   });
 };
@@ -99,27 +99,6 @@ function viewAllRoles(){
   });
   promptMenu();
 }
-//to add a department 
-// function addDepartment() {
-//       inquirer.prompt([
-//           {
-//               type: "input",
-//               name: "newDepartment",
-//               message: "What is the name of the department you would like to add?"
-//           }
-//       ])
-  
-//   .then((answer) => {
-//   let sql = INSERT INTO department (name)
-//    VALUES (id,?);
-  
-//   db.query(sql, answer.departmentName, (error, response) => {
-//       if (error) 
-//           return console.error(error.message);
-//       console.log(answer.departmentName + `Department successfully created!`);
-//     });
-//   })
-// };
 
 //adding a new department to the company
 const addNewDepartment = () => {
@@ -135,14 +114,14 @@ const addNewDepartment = () => {
         let sql = `INSERT INTO department (name) VALUES (?)`;
         db.query(sql, answer.newDepartment, (error, response) => {
           if (error) throw error;
-          console.log(answer.newDepartment + `Department successfully created!`);
+          console.log(answer.newDepartment  +  `Department successfully created!`);
+          promptMenu();
         });
       });
-    promptMenu();
 };
 
 //adding a role to the company
-const addNewRole = () => { //check to see if this works in morning
+const addNewRole = () => { 
   inquirer
     .prompt([
       {
@@ -151,127 +130,87 @@ const addNewRole = () => { //check to see if this works in morning
         message: "What is the name of the new role in the company?"
       },
       {
-        name: "newRole",
+        name: "salary",
         type: "input",
         message: "What is the salary of this new role?"
       },
       {
-        name: "newRole",
+        name: "department_id",
         type: "input",
         message: "What is the department_id of the new role?"
       }
     ])
     .then((answer) => {
       let sql = `INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)`;
-      db.query(sql, answer.newRole, (error, response) => {
+      db.query(sql, [answer.newRole, answer.salary, answer.department_id], (error, response) => {
         if (error) throw error;
-        console.log(answer.newRole + `New Role successfully created!`);
+        console.log(answer.newRole  +  `New Role successfully created!`);
+        promptMenu();
       });
     });
-  promptMenu();
 };
 
+const addNewEmployee = () => {
+  inquirer
+  .prompt([
+    {
+      name: "newEmployeeFirst",
+      type: "input",
+      message: "What is the first name of the employee?"
+    },
+    {
+      name: "newEmployeeLast",
+      type: "input",
+      message: "What is the last name of the employee?"
+    },
+    {
+      name: "role_id",
+      type: "input",
+      message: "What is the role_id of this new employee?"
+    },
+    {
+      name: "manager_id",
+      type: "list",
+      message: "Who is this employee's Manager?",
+      choices: [{name:"Ben", value:1}, {name:"Kayle", value:2}, {name:"John", value:3}, {name:"Peter", value:4}, {name: "Clark", value:5}]
+    }
+  ])
+  .then((answer) => {
+    let sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)`;
+    db.query(sql, [answer.newEmployeeFirst, answer.newEmployeeLast, answer.role_id, answer.manager_id], (error, response) => {
+      if (error) throw error;
+        console.log(answer.newEmployeeFirst  +  `New Employee successfully created!`); 
+        promptMenu();
+    });
+  });
+};
 
-// const addNewDepartment = [
-//   { 
-//     type: "input",
-//     name: "newDepartment",
-//     message: "What is the name of the department you would like to add?"
-//   }
-// ]
+const updateEmployeeRole = () => {
+  inquirer
+  .prompt([
+    {
+      name: "employeeUpdate",
+      type: "list",
+      message: "Which employee do you want to update role?",
+      choices: [{name:"Ben", value:1}, {name:"Kayle", value:2}, {name:"John", value:3}, {name:"Peter", value:4}, {name: "Clark", value:5}]
+    },
+    {
+      name: "role_id",
+      type: "list",
+      message: "What is the new role_id of this employee?",
+      choices: [{name:"HR Representative", value:1}, {name:"Senior Developer", value:2}, {name:"Marketing Strategist", value:3}, {name: "Junior Developer", value:4}, {name:"Sales Representative", value:5}]
+    }
+  ])
+  .then ((answer) => {
+    let sql = `UPDATE employee SET role_id = ? WHERE id = ?`;
+    db.query(sql, [answer.role_id, answer.employeeUpdate], (error, reponse) => {
+      if (error) throw error;
+      console.log(answer.employeeUpdate + `Updated existing employee role!`);
+      promptMenu();
+    });
+  });
+};
 
-// const addNewRole = [
-//   {
-//     type: "input",
-//     name: "newRole",
-//     message: "What is the name of the new role you would like to add?"
-//   }
-// ]
-
-// const addNewEmployee = [
-//   {
-//     type: "input",
-//     name: "first_name",
-//     message: "What is the first name of the employee?"
-//   },
-//   {
-//     type: "input",
-//     name: "last_name",
-//     message: "What is the last name of the employee?"
-//   },
-//   {
-//     type: "input",
-//     name: "role_id",
-//     message: "What role does this employee have in the company?"
-//   },
-//   {
-//     type: "confirm",
-//     name: "choice",
-//     message: "Is this employee a manager?",
-//     Choice: ["Yes", "No"]
-//   }
-// ]
-
-////////////////////////////////
-// const connection = require('../db/connection');
-// const inquirer = require('inquirer');
-
-// const addDepartment= () => {
-
-// module.exports = addDepartment;
-
-/////////////////////
-
-// }
-
-// module.exports = viewEmployees;
-
-//const viewAllDepartments = () => {
-//   sql.query("SELECT")
-// }
-// const promptDepartments = () => {
-//   return inquirer.prompt
-// }
-
-//connection.connect(err => {
-//     if(err) throw err;
-//     promptMenu();
-// });
-
-// const questions = [
-//   {
-//     name: "menu",
-//     type: "list",
-//     message: "What would you like to do?",
-//     choices: ["View All Departments", "View All Roles", "View All Employees", "Add a Department", "Add a Role", "Add an Employee", "Update an Employee Role", "Finished"]
-//   },
-//   {
-//     type: "list",
-//     name: "department",
-//     message: "Which department would you like to view?",
-//     choices: ["HR", "Operations", "Marketing"]
-//   },
-//   {
-//     type: "list",
-//     name: "roles",
-//     message: "which role would you like to view",
-//     choices: [""]
-//   }
-// ]
-
-
-// view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
-
-
-
-
-
-
-// connection.connect(err => {
-//     if(err) throw err;
-//     promptMenu();
-// });
-
-// function start(){
-// };
-
+function finish() {
+  process.exit(0);
+};
