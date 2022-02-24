@@ -86,7 +86,19 @@ function viewAllDepartments(){
   });
   promptMenu();
 }
- 
+
+function viewAllRoles(){
+  let sql = `SELECT * FROM role`;
+  db.query(sql, (error, results) => {
+    if(results) {
+      return console.table(results);
+    }
+    else {
+      return console.error(error.message);
+    }
+  });
+  prompt();
+}
  
 // const addNewDepartment = [
 //   { 
