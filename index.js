@@ -16,6 +16,11 @@ const db = mysql.createConnection(
   console.log(`Connected to the content_db`)
 );
 
+db.connect(err => {
+    if(err) throw err;
+    promptMenu();
+});
+
 //first prompt to see what the user would like todo
 const promptMenu = () => {
   return inquirer.prompt([
@@ -29,25 +34,25 @@ const promptMenu = () => {
   .then(userChoices => {
     switch (userChoices.mainMenu) {
       case "View All Departments":
-        promptDepartments();
+        viewAllDepartments();
         break;
       case "View All Roles":
-        promptRoles();
+        viewAllRoles();
         break;
       case "View All Employees":
-        promptEmployees();
+        viewAllEmployees();
         break;
       case "Add a Department":
-        promptNewDepartment();
+        addNewDepartment();
         break;
       case "Add a Role":
-        promptNewRole();
+        addNewRole();
         break;
       case "Add an Employee":
-        promptNewEmployee();
+        addNewEmployee();
         break;
       case "Update an Employee Role":
-        promptUpdateEmployeeRole();
+        updateEmployeeRole();
         break;
       case "Finished":
         promptFinish();
@@ -55,48 +60,107 @@ const promptMenu = () => {
   });
 };
 
-promptMenu(); 
+function viewAllEmployees(){
+  let sql = `SELECT * FROM employee`;
+  db.query(sql, (error, results) => {
+  if(results) {
+      return console.table(results);
+      }
+    else {
+      return console.error(error.message);
+    }
+  
+  });
+  promptMenu();
+}
+
+function viewAllDepartments(){
+  let sql = `SELECT * FROM department`;
+  db.query(sql, (error, results) => {
+    if(results) {
+      return console.table(results);
+    }
+    else {
+      return console.error(error.message);
+    }
+  });
+  promptMenu();
+}
  
-const addNewDepartment = [
-  { 
-    type: "input",
-    name: "newDepartment",
-    message: "What is the name of the department you would like to add?"
-  }
-]
+ 
+// const addNewDepartment = [
+//   { 
+//     type: "input",
+//     name: "newDepartment",
+//     message: "What is the name of the department you would like to add?"
+//   }
+// ]
 
-const addNewRole = [
-  {
-    type: "input",
-    name: "newRole",
-    message: "What is the name of the new role you would like to add?"
-  }
-]
+// const addNewRole = [
+//   {
+//     type: "input",
+//     name: "newRole",
+//     message: "What is the name of the new role you would like to add?"
+//   }
+// ]
 
-const addNewEmployee = [
-  {
-    type: "input",
-    name: "first_name",
-    message: "What is the first name of the employee?"
-  },
-  {
-    type: "input",
-    name: "last_name",
-    message: "What is the last name of the employee?"
-  },
-  {
-    type: "input",
-    name: "role_id",
-    message: "What role does this employee have in the company?"
-  },
-  {
-    type: "confirm",
-    name: "choice",
-    message: "Is this employee a manager?"
-  }
-]
+// const addNewEmployee = [
+//   {
+//     type: "input",
+//     name: "first_name",
+//     message: "What is the first name of the employee?"
+//   },
+//   {
+//     type: "input",
+//     name: "last_name",
+//     message: "What is the last name of the employee?"
+//   },
+//   {
+//     type: "input",
+//     name: "role_id",
+//     message: "What role does this employee have in the company?"
+//   },
+//   {
+//     type: "confirm",
+//     name: "choice",
+//     message: "Is this employee a manager?",
+//     Choice: ["Yes", "No"]
+//   }
+// ]
 
+////////////////////////////////
+// const connection = require('../db/connection');
+// const inquirer = require('inquirer');
 
+// const addDepartment= () => {
+//     inquirer.prompt([
+//         {
+//             type: 'input',
+//             name: 'departmentName',
+//             message: 'What is the name of the department?'
+//         }
+//     ])
+
+// .then((answer) => {
+// let sql = INSERT INTO department (id, name)
+//  VALUES (id, ?);
+
+// connection.query(sql, answer.departmentName, (error, response) => {
+//     if (error) 
+//         return console.error(error.message);
+//     console.log();
+//     console.log(answer.departmentName +  Department successfully created!);
+//     console.log();
+//   });
+// })};
+
+// module.exports = addDepartment;
+
+/////////////////////
+
+// }
+
+// module.exports = viewEmployees;
 
 //const viewAllDepartments = () => {
 //   sql.query("SELECT")
