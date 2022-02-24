@@ -121,14 +121,14 @@ function viewAllRoles(){
 //   })
 // };
 
-
+//adding a new department to the company
 const addNewDepartment = () => {
     inquirer
       .prompt([
         {
-          name: 'newDepartment',
-          type: 'input',
-          message: 'What is the name of the new Department?'
+          name: "newDepartment",
+          type: "input",
+          message: "What is the name of the new Department?"
         }
       ])
       .then((answer) => {
@@ -141,7 +141,35 @@ const addNewDepartment = () => {
     promptMenu();
 };
 
-
+//adding a role to the company
+const addNewRole = () => {
+  inquirer
+    .prompt([
+      {
+        name: "newRole",
+        type: "input",
+        message: "What is the name of the new role in the company?"
+      },
+      {
+        name: "newRole",
+        type: "input",
+        message: "What is the salary of this new role?"
+      },
+      {
+        name: "newRole",
+        type: "input",
+        message: "What is the department_id of the new role?"
+      }
+    ])
+    .then((answer) => {
+      let sql = `INSERT INTO role (title, salary, department_id) VALUES (?)`;
+      db.query(sql, answer.newRole, (error, response) => {
+        if (error) throw error;
+        console.log(answer.newRole + `New Role successfully created!`);
+      });
+    });
+  promptMenu();
+};
 
 
 // const addNewDepartment = [
