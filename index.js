@@ -99,28 +99,26 @@ function viewAllRoles(){
   });
   promptMenu();
 }
- 
-// function addDepartment = () => {
-//       inquirer.prompt([
-//           {
-//               type: "input",
-//               name: "newDepartment",
-//               message: "What is the name of the department you would like to add?"
-//           }
-//       ])
+//to add a department 
+function addDepartment() {
+      inquirer.prompt([
+          {
+              type: "input",
+              name: "newDepartment",
+              message: "What is the name of the department you would like to add?"
+          }
+      ])
   
-//   .then((answer) => {
-//   let sql = INSERT INTO department (id, name)
-//    VALUES (id, ?);
+  .then((answer) => {
+  let sql = INSERT INTO department (name)
+   VALUES (id,?);
   
-//   connection.query(sql, answer.departmentName, (error, response) => {
-//       if (error) 
-//           return console.error(error.message);
-//       console.log();
-//       console.log(answer.departmentName +  Department successfully created!);
-//       console.log();
-//     });
-//   })};
+  db.query(sql, answer.departmentName, (error, response) => {
+      if (error) 
+          return console.error(error.message);
+      console.log(answer.departmentName + "Department successfully created!");
+    });
+  })};
 
 
 
