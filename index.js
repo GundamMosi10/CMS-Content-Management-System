@@ -3,6 +3,7 @@ const fs = require('fs'); //Filesystem
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
 const cTable = require('console.table');
+const { values } = require('lodash');
 
 //create the connection to database
 const db = mysql.createConnection(
@@ -14,6 +15,7 @@ const db = mysql.createConnection(
   },
   console.log(`Connected to the content_db`)
 );
+
 
 const promptMenu = () => {
   return inquirer.prompt([
@@ -53,16 +55,25 @@ const promptMenu = () => {
   });
 };
 
-
+const promptDepartments = () => {
+  const sql =   `SELECT department.id AS id, department.department_name AS department FROM department`; 
+    promptMenu();
+};
 
 promptMenu(); 
+ 
 
-
+//const viewAllDepartments = () => {
+//   sql.query("SELECT")
+// }
 // const promptDepartments = () => {
 //   return inquirer.prompt
 // }
 
-
+//connection.connect(err => {
+//     if(err) throw err;
+//     promptMenu();
+// });
 
 // const questions = [
 //   {
@@ -93,9 +104,9 @@ promptMenu();
 
 
 
-// db.connect(err => {
-//     if(err) throw err
-//     start()
+// connection.connect(err => {
+//     if(err) throw err;
+//     promptMenu();
 // });
 
 // function start(){
