@@ -59,7 +59,7 @@ const promptMenu = () => {
     }
   });
 };
-
+//to view all employees
 function viewAllEmployees(){
   let sql = `SELECT * FROM employee`;
   db.query(sql, (error, results) => {
@@ -73,7 +73,7 @@ function viewAllEmployees(){
   });
   promptMenu();
 }
-
+//to view all departments
 function viewAllDepartments(){
   let sql = `SELECT * FROM department`;
   db.query(sql, (error, results) => {
@@ -86,7 +86,7 @@ function viewAllDepartments(){
   });
   promptMenu();
 }
-
+//to veiw all roles
 function viewAllRoles(){
   let sql = `SELECT * FROM role`;
   db.query(sql, (error, results) => {
@@ -97,9 +97,33 @@ function viewAllRoles(){
       return console.error(error.message);
     }
   });
-  prompt();
+  promptMenu();
 }
  
+// function addDepartment = () => {
+//       inquirer.prompt([
+//           {
+//               type: "input",
+//               name: "newDepartment",
+//               message: "What is the name of the department you would like to add?"
+//           }
+//       ])
+  
+//   .then((answer) => {
+//   let sql = INSERT INTO department (id, name)
+//    VALUES (id, ?);
+  
+//   connection.query(sql, answer.departmentName, (error, response) => {
+//       if (error) 
+//           return console.error(error.message);
+//       console.log();
+//       console.log(answer.departmentName +  Department successfully created!);
+//       console.log();
+//     });
+//   })};
+
+
+
 // const addNewDepartment = [
 //   { 
 //     type: "input",
@@ -145,26 +169,6 @@ function viewAllRoles(){
 // const inquirer = require('inquirer');
 
 // const addDepartment= () => {
-//     inquirer.prompt([
-//         {
-//             type: 'input',
-//             name: 'departmentName',
-//             message: 'What is the name of the department?'
-//         }
-//     ])
-
-// .then((answer) => {
-// let sql = INSERT INTO department (id, name)
-//  VALUES (id, ?);
-
-// connection.query(sql, answer.departmentName, (error, response) => {
-//     if (error) 
-//         return console.error(error.message);
-//     console.log();
-//     console.log(answer.departmentName +  Department successfully created!);
-//     console.log();
-//   });
-// })};
 
 // module.exports = addDepartment;
 
