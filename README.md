@@ -20,7 +20,7 @@
   
   ## Usage:
   Here is a link to a [demo]() 
-  ![Screenshot](./assets/img/CMS-ScreenShot#1.png "screen shot #1 of the note pad app the landing page")
+  ![Screenshot](./assets/img/ "screen shot #1 of the note pad app the landing page")
   
   ## Installation:
   To start this application in the command line, you should do the following: make sure that your machine has mysql2 downloaded as a dependency as well as inquirer. Another package you should make sure you have is cTable or in code: console.table, this will allow you to view tables formatted in the command line integrated terminal. Now once you have all of these on your machine and have this cloned repo, you are going to want to set up the server with MySQLWorkbench by importing the schema.sql and the seeds.sql so that you have some pre-determined data to work with. I will show this in the demo above so that you know what you are doing. Now we can start the application by right-clicking on the index.js and selecting 'open in integrated terminal', once open you can type in the code: node index.js which will start the prompts in the command line terminal. 
