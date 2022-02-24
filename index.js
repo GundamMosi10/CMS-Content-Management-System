@@ -3,7 +3,7 @@ const fs = require('fs'); //Filesystem
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
 const cTable = require('console.table');
-const { values } = require('lodash');
+
 
 //create the connection to database
 const db = mysql.createConnection(
@@ -16,7 +16,7 @@ const db = mysql.createConnection(
   console.log(`Connected to the content_db`)
 );
 
-
+//first prompt to see what the user would like todo
 const promptMenu = () => {
   return inquirer.prompt([
     {
@@ -55,13 +55,48 @@ const promptMenu = () => {
   });
 };
 
-const promptDepartments = () => {
-  const sql =   `SELECT department.id AS id, department.department_name AS department FROM department`; 
-    promptMenu();
-};
-
 promptMenu(); 
  
+const addNewDepartment = [
+  { 
+    type: "input",
+    name: "newDepartment",
+    message: "What is the name of the department you would like to add?"
+  }
+]
+
+const addNewRole = [
+  {
+    type: "input",
+    name: "newRole",
+    message: "What is the name of the new role you would like to add?"
+  }
+]
+
+const addNewEmployee = [
+  {
+    type: "input",
+    name: "first_name",
+    message: "What is the first name of the employee?"
+  },
+  {
+    type: "input",
+    name: "last_name",
+    message: "What is the last name of the employee?"
+  },
+  {
+    type: "input",
+    name: "role_id",
+    message: "What role does this employee have in the company?"
+  },
+  {
+    type: "confirm",
+    name: "choice",
+    message: "Is this employee a manager?"
+  }
+]
+
+
 
 //const viewAllDepartments = () => {
 //   sql.query("SELECT")
