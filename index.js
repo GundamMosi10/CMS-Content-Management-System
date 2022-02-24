@@ -100,25 +100,47 @@ function viewAllRoles(){
   promptMenu();
 }
 //to add a department 
-function addDepartment() {
-      inquirer.prompt([
-          {
-              type: "input",
-              name: "newDepartment",
-              message: "What is the name of the department you would like to add?"
-          }
+// function addDepartment() {
+//       inquirer.prompt([
+//           {
+//               type: "input",
+//               name: "newDepartment",
+//               message: "What is the name of the department you would like to add?"
+//           }
+//       ])
+  
+//   .then((answer) => {
+//   let sql = INSERT INTO department (name)
+//    VALUES (id,?);
+  
+//   db.query(sql, answer.departmentName, (error, response) => {
+//       if (error) 
+//           return console.error(error.message);
+//       console.log(answer.departmentName + `Department successfully created!`);
+//     });
+//   })
+// };
+
+
+const addNewDepartment = () => {
+    inquirer
+      .prompt([
+        {
+          name: 'newDepartment',
+          type: 'input',
+          message: 'What is the name of the new Department?'
+        }
       ])
-  
-  .then((answer) => {
-  let sql = INSERT INTO department (name)
-   VALUES (id,?);
-  
-  db.query(sql, answer.departmentName, (error, response) => {
-      if (error) 
-          return console.error(error.message);
-      console.log(answer.departmentName + "Department successfully created!");
-    });
-  })};
+      .then((answer) => {
+        let sql = `INSERT INTO department (name) VALUES (?)`;
+        db.query(sql, answer.newDepartment, (error, response) => {
+          if (error) throw error;
+          console.log(answer.newDepartment + `Department successfully created!`);
+        });
+      });
+    promptMenu();
+};
+
 
 
 
