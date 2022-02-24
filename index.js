@@ -142,7 +142,7 @@ const addNewDepartment = () => {
 };
 
 //adding a role to the company
-const addNewRole = () => {
+const addNewRole = () => { //check to see if this works in morning
   inquirer
     .prompt([
       {
@@ -162,7 +162,7 @@ const addNewRole = () => {
       }
     ])
     .then((answer) => {
-      let sql = `INSERT INTO role (title, salary, department_id) VALUES (?)`;
+      let sql = `INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)`;
       db.query(sql, answer.newRole, (error, response) => {
         if (error) throw error;
         console.log(answer.newRole + `New Role successfully created!`);
