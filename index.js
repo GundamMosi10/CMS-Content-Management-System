@@ -172,7 +172,7 @@ const addNewEmployee = () => {
       name: "manager_id",
       type: "list",
       message: "Who is this employee's Manager?",
-      choices: [{name:"Ben", value:1}, {name:"Kayle", value:2}, {name:"John", value:3}, {name:"Peter", value:4}, {name: "Clark", value:5}]
+      choices: [{name:"Ben", value:1}, {name:"Kayle", value:2}, {name:"John", value:3}, {name:"Peter", value:4}, {name: "Clark", value:5}, {name:"null", value:null}]
     }
   ])
   .then((answer) => {
